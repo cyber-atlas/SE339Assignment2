@@ -20,6 +20,9 @@ public class Driver {
     @Column(name = "last_name")
     private String lastName;
 
+    @Column(name = "phoneNumber")
+    private String phoneNumber ;
+
     @Column(name = "vehicle_id")
     private Long vehicleId;
 
@@ -55,6 +58,13 @@ public class Driver {
         this.vehicleId = vehicleId;
     }
 
+     public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -67,6 +77,7 @@ public class Driver {
                 .append(id, driver.id)
                 .append(firstName, driver.firstName)
                 .append(lastName, driver.lastName)
+                .append(phoneNumber, driver.phoneNumber)
                 .append(vehicleId, driver.vehicleId)
                 .isEquals();
     }
@@ -77,6 +88,7 @@ public class Driver {
                 .append(id)
                 .append(firstName)
                 .append(lastName)
+                .append(phoneNumber)
                 .append(vehicleId)
                 .toHashCode();
     }
@@ -87,7 +99,9 @@ public class Driver {
                 .append("id", id)
                 .append("firstName", firstName)
                 .append("lastName", lastName)
+                .append("phoneNumber", phoneNumber)
                 .append("vehicleId", vehicleId)
                 .toString();
     }
+
 }
