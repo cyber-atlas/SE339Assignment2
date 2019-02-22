@@ -8,5 +8,7 @@ public interface VehicleService {
 
     List<Vehicle> getAllVehicles();
 
+    Vehicle addVehicle(Vehicle vehicle);
+
     String getVehicleLicensePlate(Long vehicleId);
 }

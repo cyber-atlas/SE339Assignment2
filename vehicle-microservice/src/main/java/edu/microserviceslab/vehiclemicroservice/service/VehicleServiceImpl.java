@@ -2,6 +2,7 @@ package edu.microserviceslab.vehiclemicroservice.service;
 
 import edu.microserviceslab.vehiclemicroservice.entity.Registration;
 import edu.microserviceslab.vehiclemicroservice.entity.Vehicle;
+import edu.microserviceslab.vehiclemicroservice.repo.RegistrationRepo;
 import edu.microserviceslab.vehiclemicroservice.repo.VehicleRepo;
 import edu.microserviceslab.vehiclemicroservice.service.interfaces.VehicleService;
 import org.springframework.stereotype.Service;
@@ -13,9 +14,11 @@ import java.util.Optional;
 public class VehicleServiceImpl implements VehicleService {
 
     private VehicleRepo vehicleRepo;
+    private RegistrationRepo registrationRepo;
 
-    public VehicleServiceImpl(VehicleRepo vehicleRepo) {
+    public VehicleServiceImpl(VehicleRepo vehicleRepo, RegistrationRepo registrationRepo) {
         this.vehicleRepo = vehicleRepo;
+        this.registrationRepo = registrationRepo;
     }
 
     @Override
@@ -37,4 +40,11 @@ public class VehicleServiceImpl implements VehicleService {
 
         return toReturn;
     }
+
+    public Vehicle addVehicle(Vehicle vehicle){
+        Registration registration = vehicle.getRegistration();
+        vehicle.setRegistration(registrationRepo.save(registration));
+        return vehicleRepo.save(vehicle);
+    }
+
 }

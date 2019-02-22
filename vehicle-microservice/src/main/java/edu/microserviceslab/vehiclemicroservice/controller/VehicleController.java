@@ -27,4 +27,14 @@ public class VehicleController {
     public String getVehicleLicensePlate(@PathVariable("vehicleId") Long vehicleId) {
         return vehicleService.getVehicleLicensePlate(vehicleId);
     }
+
+    @ResponseBody
+    @RequestMapping(path = "/add", method = RequestMethod.POST)
+    public Vehicle addVehicle(@RequestBody Vehicle vehicle) {
+        if(vehicle == null){
+            throw new IllegalStateException();
+        }
+        return vehicleService.addVehicle(vehicle);
+    }
+
 }
