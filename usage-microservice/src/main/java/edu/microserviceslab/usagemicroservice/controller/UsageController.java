@@ -2,10 +2,7 @@ package edu.microserviceslab.usagemicroservice.controller;
 
 import edu.microserviceslab.usagemicroservice.entity.UsageStatistic;
 import edu.microserviceslab.usagemicroservice.service.interfaces.UsageService;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -36,4 +33,25 @@ public class UsageController {
     public List<UsageStatistic> listAllUsageStatisticsForVehicle(@PathVariable("vehicleId") Long vehicleId) {
         return usageService.getUsageStatisticsPerVehicle(vehicleId);
     }
+
+    @ResponseBody
+    @PostMapping(path = "/add")
+    public UsageStatistic addUsageStat(@RequestBody UsageStatistic usageStat){
+       if (usageStat == null) {
+            throw new IllegalStateException("Please submit valid usage statistics");
+        }
+        if (usageStat.getVehicleId() == null) {
+            throw new IllegalStateException("The driver needs to have a vehicle assigned to him.");
+        }
+        if (usageStat.getDriverId() == null){
+            throw new IllegalStateException("Need a driver id");
+        }
+        if (usageStat.getDriverFullname()==null){
+            throw new IllegalStateException("Need driver full name");
+        }
+
+        return usageService.addUsageStatistic(usageStat);
+    }
+
+
 }
